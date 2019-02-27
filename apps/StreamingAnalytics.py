@@ -9,4 +9,4 @@ from app import dash_app
 
 
 
-layout = html.Div(html.P('opps'))
+layout=html.Div(html.P('Streaming Analytics'))

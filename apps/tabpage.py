@@ -6,8 +6,8 @@ from dash.dependencies import Input, Output
 import os
 
 from app import dash_app
-from apps import tabOpps, tabLeads, tabNew
-from apps import tabLeads
+from apps import Tab1, Tab2, StreamingAnalytics
+
 
 import pandas as pd
 
@@ -19,11 +19,11 @@ layout =html.Div([
                 id="tabs",
                 style={"height": "20", "verticalAlign": "middle"},
                 children=[
-                    dcc.Tab(label="Opportunities", value="opportunities_tab"),
-                    dcc.Tab(label="Leads", value="leads_tab"),
-                    dcc.Tab(id="cases_tab",label="Cases", value="cases_tab"),
+                    dcc.Tab(label="Tab1", value="Tab1_tab"),
+                    dcc.Tab(label="Tab2", value="Tab2_tab"),
+                    dcc.Tab(label="Streaming Analytics", value="StreamingAnalytics_tab"),
                 ],
-                value="leads_tab",
+                value="StreamingAnalytics_tab",
             )], className="row tabs_div"),
 
             html.Div(id="tab_content", className="row", style={"margin": "2% 3%"}),
@@ -37,11 +37,11 @@ layout =html.Div([
 
 @dash_app.callback(Output("tab_content", "children"), [Input("tabs", "value")])
 def render_content(tab):
-    if tab == "opportunities_tab":
-        return tabOpps.layout
-    elif tab == "cases_tab":
-        return tabLeads.layout
-    elif tab == "leads_tab":
-        return tabNew.layout
+    if tab == "Tab1_tab":
+        return Tab1.layout
+    elif tab == "Tab2_tab":
+        return Tab2.layout
+    elif tab == "StreamingAnalytics_tab":
+        return StreamingAnalytics.layout
     else:
-        return tabOpps.layout
+        return Tab1.layout

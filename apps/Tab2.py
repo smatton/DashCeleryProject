@@ -8,4 +8,4 @@ import os
 from app import dash_app
 
 
-layout=html.Div(html.P('leads'))
+layout=html.Div(html.P('Tab2'))
