@@ -10,3 +10,6 @@ log_folder = r'C:\Users\scott\Desktop\log'
 
 
 cas_server_types = ['laxno', 'wx6do']
+
+data_folder = r'C:\Users\scott\Desktop\engine'
+model_folder = r'C:\Users\scott\Desktop\DashCeleryProject\models'
