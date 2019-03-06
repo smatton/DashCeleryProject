@@ -11,4 +11,4 @@
  celery -A mytasks worker --loglevel=info --concurrency 7 -P eventlet -Q windowsWorker -f C:\Users\scott\Desktop\forSas\DashCeleryProject\logs\window_worker.log
 
  this  starts a worker registering the tasks in mytasks.py with 7 processes using eventlet to handle processes and listens
- on the "windowsWorker" queue
+ on the "windowsWorker" queue logging to the file C:\Users\scott\Desktop\forSas\DashCeleryProject\logs\window_worker.logs

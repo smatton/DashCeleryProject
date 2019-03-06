@@ -4,7 +4,6 @@ import dash_html_components as html
 import dash_table as dt
 from dash.dependencies import Input, Output
 import os
-from mytasks import add
 from app import dash_app
 from appConfig import file_folder, cas_server_types
 
@@ -20,10 +19,19 @@ def getFiles():
 # Define your layout for the page, this gets imported in index.py to render the
 # page using the layout
 def makeIframe(file_name):
-    if file_name is not None:
-        doc = open(os.path.join(file_folder, file_name)).readlines()
 
-        return html.Iframe(sandbox='', srcDoc=' '.join(doc))
+    if file_name is not None:
+        f = os.path.join(file_folder, file_name)
+        _, extension = os.path.splitext(f)
+        message1 = ''
+        with open(f) as file1:
+            for line in file1:
+                if extension.lower() == '.xml':
+                    line = line.replace("<", "&lt").replace(">", "&gt")
+                message1 = message1 + line + '<BR>'
+
+
+        return html.Iframe(srcDoc=message1, style={'width':"50%", "height":400})
     else:
         return None
 
@@ -55,9 +63,10 @@ layout = html.Div([
     Output('iframe-div', 'children'),
     [Input('file_drop', 'value')]
 )
+
 def updateIframe(file_name):
 
-    return makeIframe()
+    return makeIframe(file_name)
 
 
 @dash_app.callback(
