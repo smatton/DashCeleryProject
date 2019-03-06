@@ -1,0 +1,14 @@
+ You can start workers by sourcing the python environment and running the following
+ command from the project directory.
+
+ "celery -A mytasks worker --loglevel=info"
+
+ add --concurrency [n] to change the number of worker processes, -Q [queuename] designates the queue to listen to
+ -P eventlet may be needed on windows workers, -f can specify location to write log file
+
+ Example for Windows worker
+
+ celery -A mytasks worker --loglevel=info --concurrency 7 -P eventlet -Q windowsWorker -f C:\Users\scott\Desktop\forSas\DashCeleryProject\logs\window_worker.log
+
+ this  starts a worker registering the tasks in mytasks.py with 7 processes using eventlet to handle processes and listens
+ on the "windowsWorker" queue

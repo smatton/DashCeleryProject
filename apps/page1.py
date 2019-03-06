@@ -4,9 +4,8 @@ import dash_html_components as html
 import dash_table as dt
 from dash.dependencies import Input, Output
 import os
-
+from mytasks import add
 from app import dash_app
-import pandas as pd
 from appConfig import file_folder, cas_server_types
 
 
@@ -20,10 +19,18 @@ def getFiles():
 
 # Define your layout for the page, this gets imported in index.py to render the
 # page using the layout
+def makeIframe(file_name):
+    if file_name is not None:
+        doc = open(os.path.join(file_folder, file_name)).readlines()
+
+        return html.Iframe(sandbox='', srcDoc=' '.join(doc))
+    else:
+        return None
+
 layout = html.Div([
     html.Div([
     dcc.Dropdown(
-        id = 'file_drop',
+        id='file_drop',
         options=getFiles(),
 
     ),
@@ -31,14 +38,14 @@ layout = html.Div([
         options=server_options,
         values=['laxno']
     ),
-    html.Div(id='iframe-div',className='six columns'),
+    html.Div(id='iframe-div', className='six columns'),
 
 
-    ],className='row'),
+    ], className='row'),
     html.Div(children=[
     html.Button('Submit', id='submit-job'),
     html.Button('Refresh Results', id='refresh-button'),
-    dcc.Link('Streaming Analytics Page', href='/tabpage'),
+    dcc.Link('tabpages', href='/tabpage'),
     html.Div(id='table-dropdown-container')], className='row'
     )
 ],className='row')
@@ -48,13 +55,9 @@ layout = html.Div([
     Output('iframe-div', 'children'),
     [Input('file_drop', 'value')]
 )
-def makeIframe(file_name):
-    if file_name is not None:
-        doc = open(os.path.join(file_folder, file_name)).readlines()
-        print(doc)
-        return html.Iframe(sandbox='', srcDoc=' '.join(doc))
-    else:
-        return None
+def updateIframe(file_name):
+
+    return makeIframe()
 
 
 @dash_app.callback(

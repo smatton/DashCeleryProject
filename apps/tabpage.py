@@ -6,10 +6,7 @@ from dash.dependencies import Input, Output
 import os
 
 from app import dash_app
-from apps import Tab1, Tab2, StreamingAnalytics
-
-
-import pandas as pd
+from apps import Tab1, Tab2, Tab3
 
 
 layout =html.Div([
@@ -21,9 +18,9 @@ layout =html.Div([
                 children=[
                     dcc.Tab(label="Tab1", value="Tab1_tab"),
                     dcc.Tab(label="Tab2", value="Tab2_tab"),
-                    dcc.Tab(label="Streaming Analytics", value="StreamingAnalytics_tab"),
+                    dcc.Tab(label="Tab3", value="Tab3_tab"),
                 ],
-                value="StreamingAnalytics_tab",
+                value="Tab1_tab",
             )], className="row tabs_div"),
 
             html.Div(id="tab_content", className="row", style={"margin": "2% 3%"}),
@@ -41,7 +38,7 @@ def render_content(tab):
         return Tab1.layout
     elif tab == "Tab2_tab":
         return Tab2.layout
-    elif tab == "StreamingAnalytics_tab":
-        return StreamingAnalytics.layout
+    elif tab == "Tab3_tab":
+        return Tab3.layout
     else:
         return Tab1.layout
